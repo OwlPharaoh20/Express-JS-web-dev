@@ -3,6 +3,11 @@ const express = require('express')
 const router = express.Router()
 
 
+router.use(logger) // use the logger middleware
+
+
+router.use(logger)
+
 //Define the routes
 //route for user list
 router.get('/', (req , res) => {
@@ -39,14 +44,18 @@ router
 
 
 const users = [{name: "Kyle"}, {name: "Sally"}, {name: "Sue"}]
-
-
-
 router.param("id", (req, res, next, id) => {
     req.user = users[id] 
     next()
 })
 
+function logger(req, res, next) {
+    console.log(req.originalUrl)
+    next()
+}
+
 
 //Export the router, so that it can be used in server.js
 module.exports = router
+
+module.exports.logger = logger;

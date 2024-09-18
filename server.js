@@ -1,6 +1,7 @@
 //Import the necessary modules
 const express = require('express')
 const app = express()
+const logger = require('./routes/users').logger;
 
 
 //Set view engine - EJS template engine for display data
@@ -12,8 +13,7 @@ app.use(logger)
 
 
 //Define the routes 
-app.get('/' , (req , res, next ) => {
-    console.log('here')
+app.get('/' , (req , res,  ) => {
     res.render("index", {text23423: "world"})
     })
 
@@ -27,9 +27,6 @@ const userRouter = require('./routes/users')
 app.use('/users', userRouter)
 
 
-function logger(req, res, next) {
-    console.log(req.originalUrl)
-    next()
-}
+
 //start server
 app.listen(3000)
